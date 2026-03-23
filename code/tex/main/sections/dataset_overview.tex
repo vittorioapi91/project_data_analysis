@@ -1,0 +1,187 @@
+\section{Dataset Overview}
+
+The dataset covers daily observations from April 2018 to April 2023, a period
+that spans the late-cycle expansion of 2018--2019, the COVID-19 pandemic shock
+of early 2020, the subsequent monetary and fiscal policy response, the
+post-pandemic inflation surge, and the aggressive central-bank tightening
+campaigns of 2022--2023. Below we describe each series and its behaviour over
+the sample.
+
+\subsection*{Equity indices}
+
+\begin{itemize}
+  \item \textbf{S\&P 500 (\texttt{S\&P}).}
+    The US large-cap equity benchmark gained approximately 53\% over the
+    sample, but the path was far from linear. A sharp sell-off in March 2020,
+    triggered by global lockdowns, saw the index fall to 2\,237 before
+    substantial Fed easing and fiscal stimulus drove a rapid recovery. It
+    reached an all-time high near 4\,800 in January 2022, then retreated
+    roughly 20\% during the rate-hiking cycle before partially recovering into
+    early 2023.
+
+  \item \textbf{EuroStoxx 600 (\texttt{ESTX600}).}
+    The broad European equity benchmark rose approximately 22\% over the
+    period, following a broadly similar pattern---a crash to 280 in March 2020,
+    a strong recovery, and a high near 494 in early 2022. However, its
+    performance lagged US equities, reflecting Europe's greater exposure to the
+    energy crisis triggered by the Russia--Ukraine conflict and relatively
+    slower earnings growth.
+\end{itemize}
+
+\subsection*{Foreign exchange}
+
+\begin{itemize}
+  \item \textbf{EURUSD spot rate (\texttt{EURUSD}).}
+    The euro depreciated approximately 12\% against the dollar over the sample,
+    driven by the Fed tightening faster and more aggressively than the ECB,
+    compounded by the European energy crisis. The pair briefly broke below
+    parity in September 2022, reaching 0.9594---a level not observed since
+    2002---before recovering as the ECB accelerated its own hiking cycle.
+
+  \item \textbf{EURUSD 3-month FX basis swap (\texttt{EURUSD3mBS}).}
+    This series measures the cost of swapping EUR for USD funding over three
+    months, quoted in basis points. On a point-to-point basis it ended close
+    to where it started, but exhibited extreme volatility in between. The most
+    notable move was a collapse to --81\,bps in March 2020, reflecting acute
+    dollar funding stress as global institutions sought USD liquidity.
+    The Fed's emergency swap lines quickly normalised the basis. It
+    subsequently swung into positive territory, peaking near +65\,bps, as the
+    ECB's rate hikes made EUR funding relatively more expensive.
+\end{itemize}
+
+\subsection*{Government bond yields and yield curves}
+
+\begin{itemize}
+  \item \textbf{10-year US Treasury yield (\texttt{UST10}).}
+    The 10-year yield experienced a significant round-trip: it fell to a
+    historic low of 0.51\% in August 2020 as the Fed cut rates to zero and
+    launched large-scale asset purchases, then rose to 4.24\% in
+    October 2022, driven by persistent inflation and aggressive tightening.
+    It ended the sample moderately higher than its starting level.
+
+  \item \textbf{10-year Bund yield (\texttt{DEM10}).}
+    The German 10-year benchmark fell into deeply negative territory
+    (--0.86\%) during 2019--2020, reflecting the ECB's negative-rate policy
+    and safe-haven demand during COVID. The yield turned positive in early 2022
+    and peaked at 2.75\% as the ECB pivoted to rate hikes, ending the sample
+    materially above its starting level.
+
+  \item \textbf{2-year US Treasury yield (\texttt{UST2}).}
+    The 2-year yield bottomed at 0.10\% in 2020--2021 when the Fed held rates
+    at the zero lower bound, then rose to 5.07\% as the market priced in
+    cumulative Fed hikes of over 500\,bps. The short end led the move higher
+    because 2-year rates are more tightly anchored to policy-rate expectations,
+    ending the sample significantly above its initial level.
+
+  \item \textbf{2-year Schatz yield (\texttt{DEM2}).}
+    The German 2-year yield traded as low as --1.01\%, deep in negative
+    territory while the ECB deposit rate sat at --0.50\%. When the ECB began
+    hiking in July 2022 it climbed rapidly, peaking at 3.33\%---reflecting
+    one of the fastest policy pivots in ECB history---and ending the sample
+    well above its starting level.
+
+  \item \textbf{2s--10s US Treasury curve (\texttt{USYC}).}
+    The 10-year minus 2-year spread steepened to +158\,bps in early 2021 as
+    the market anticipated post-COVID reflation while the Fed held the front
+    end at zero. It then inverted sharply, reaching --108\,bps, as the
+    2-year yield outpaced the 10-year during the hiking cycle---a classic
+    recession warning signal.
+
+  \item \textbf{2s--10s German curve (\texttt{DEYC}).}
+    The equivalent German spread was persistently steep during the ECB's
+    negative-rate era, then flattened and inverted as ECB tightening pulled the
+    short end higher faster than the long end. The transition from a positively
+    sloped to an inverted curve mirrored the US dynamic with a lag.
+\end{itemize}
+
+\subsection*{Overnight rates}
+
+\begin{itemize}
+  \item \textbf{SOFR (\texttt{SOFR}).}
+    The Secured Overnight Financing Rate, the Fed's preferred short-term
+    benchmark, fell to near zero (0.01\%) in March 2020 following emergency
+    inter-meeting rate cuts, then rose steadily to 4.80\% by the end of the
+    sample, closely tracking the effective federal funds rate through the full
+    hiking cycle.
+
+  \item \textbf{Euro short-term rate (\texttt{ESTR}).}
+    The ECB's overnight benchmark was pinned around --0.55\% through 2021,
+    reflecting the negative deposit facility rate. It began rising in mid-2022
+    and ended at 2.90\%, mirroring the ECB's cumulative 350\,bps of
+    tightening.
+\end{itemize}
+
+\subsection*{Credit default swap indices}
+
+\begin{itemize}
+  \item \textbf{CDX IG 5-year (\texttt{CDX IG}).}
+    The North American investment-grade CDS index ended the sample modestly
+    wider than its starting level. It rose to 152\,bps during the
+    March 2020 liquidity crisis as corporate default concerns intensified. The
+    Federal Reserve's decision to backstop the corporate bond market via the
+    Secondary Market Corporate Credit Facility (SMCCF) rapidly compressed
+    spreads back toward pre-crisis levels. A secondary widening occurred in
+    mid-2022 amid recession fears, though materially smaller than the COVID
+    episode.
+
+  \item \textbf{CDX HY 5-year (\texttt{CDX HY}).}
+    The high-yield counterpart widened to 871\,bps in March 2020, nearly
+    tripling from pre-crisis levels, as high-yield issuers were seen as most
+    vulnerable to a prolonged shutdown. The recovery was swift but HY spreads
+    remained wider than their pre-COVID tights throughout the sample, ending
+    materially above the starting level.
+
+  \item \textbf{iTraxx Main IG 5-year (\texttt{ITRX IG}).}
+    The European investment-grade CDS index mirrored CDX IG's COVID spike
+    (peaking at 139\,bps) and subsequent compression, though European spreads
+    were additionally affected by the 2022 energy crisis and sovereign-spread
+    concerns in peripheral Europe. It ended the sample moderately wider.
+
+  \item \textbf{iTraxx Crossover 5-year (\texttt{ITRX XO}).}
+    The European sub-investment-grade/crossover index peaked at 708\,bps in
+    March 2020. Crossover spreads remained structurally wider than pre-COVID
+    levels throughout the sample, partly reflecting lingering uncertainty
+    around European energy security and the corporate impact of higher rates.
+\end{itemize}
+
+\subsection*{Commodities}
+
+\begin{itemize}
+  \item \textbf{Brent crude oil (\texttt{CO}).}
+    Brent crude gained approximately 49\% over the sample but with significant
+    intra-period volatility. It fell sharply in early 2020 as lockdowns
+    destroyed transport fuel demand, then rose above \$100 in mid-2022
+    following Russia's invasion of Ukraine and associated supply disruptions.
+    Prices moderated into 2023 as demand concerns from the global slowdown
+    partially offset tight supply.
+\end{itemize}
+
+\subsection*{Inflation breakevens}
+
+\begin{itemize}
+  \item \textbf{US 5-year inflation breakeven (\texttt{US5BEI}).}
+    On a point-to-point basis the breakeven ended near its starting level,
+    but the intra-sample range was notable: it fell to 0.18\% in March 2020
+    as markets priced in a deflationary demand shock, then rose to 3.73\% by
+    mid-2022 as realised CPI inflation exceeded 9\%. The magnitude of this
+    round-trip was among the largest observed historically, reflecting a rapid
+    transition from deflation expectations to sustained above-target inflation.
+
+  \item \textbf{French 5-year inflation breakeven (\texttt{FR5BEI}).}
+    This series is excluded from all quantitative analyses due to insufficient
+    data coverage (85\% of observations missing). A detailed justification is
+    provided in the sensitivity document (Section~2).
+\end{itemize}
+
+\subsection*{Volatility}
+
+\begin{itemize}
+  \item \textbf{VIX (\texttt{VIX}).}
+    The CBOE implied-volatility index ended the sample near its starting
+    level, consistent with the VIX's well-known mean-reverting properties. The
+    defining event was a rise to 82.7 in March 2020---its
+    highest reading since the 2008 financial crisis---as markets experienced
+    extreme dislocations. It subsequently mean-reverted, with periodic
+    flare-ups during the 2022 sell-off, before settling back near long-run
+    averages.
+\end{itemize}

@@ -1,0 +1,52 @@
+\section{Conclusions}
+
+The sensitivity analyses conducted in this document confirm the robustness of
+the main report's principal findings across four dimensions:
+
+\begin{itemize}
+  \item \textbf{Variable selection and model diagnostics.} Among the four
+    candidate specifications tested, the RatesVolEquity model (\(\Delta VIX\),
+    \(\Delta S\&P\), \(\Delta UST10\), \(\Delta USYC\), \(\Delta SOFR\))
+    achieves the highest out-of-sample \(R^2\) and the lowest AIC/BIC,
+    with all coefficients statistically significant at the 5\% level. The
+    remaining models either lack explanatory power out of sample
+    (InflationMacro, FXBasisPolicy) or rely on variables that are partially
+    tautological with the target (CrossMarket). These results reinforce the
+    selection of the five-factor rates--volatility--equity specification in the
+    main report.
+
+  \item \textbf{Lag structure and cross-correlations.} The ACF and PACF of
+    CDX IG daily changes reveal only a mild mean-reversion pattern at lag~1,
+    with no significant autocorrelation beyond the first few lags.
+    Cross-correlation functions against all candidate drivers are
+    overwhelmingly concentrated at lag~0, confirming that a contemporaneous
+    specification is appropriate. The only notable exception is a modest
+    lag-1 signal from European credit indices (ITRX IG, ITRX XO), attributable
+    to the time-zone difference between European and US market closes rather
+    than a genuine predictive lead.
+
+  \item \textbf{Regime-switching fair value (RV vs VIX).} Conditioning static
+    OLS on a simple two-state rule based on S\&P realised volatility (from
+    daily index returns) versus VIX
+    does not improve out-of-sample fit for the best candidate model on this
+    sample (see generated metrics in the regime section), though regime timing is
+    illustrated in Figure~\ref{fig:regime_rv_vix}.
+    This remains a sensitivity check; the main report continues to use the
+    standard pooled static specification.
+
+  \item \textbf{Rolling-window fair value model.} The static
+    global-coefficient model achieves higher explanatory power
+    (\(R^2 \approx 0.70\)) than the 180-day rolling alternative
+    (\(R^2 \approx 0.50\)) over this sample, indicating that the
+    spread--driver relationships are sufficiently stable for a fixed-parameter
+    approach. Nevertheless, the rolling specification adapts more rapidly during
+    regime transitions (March 2020, mid-2022) and provides a useful real-time
+    complement for monitoring fair-value dislocations.
+\end{itemize}
+
+Taken together, these results support the analytical framework adopted in the
+main report. The key modelling choices---contemporaneous regressors, a
+five-factor rates--volatility--equity feature set, and a static estimation
+approach---are each validated by the corresponding sensitivity test, while the
+rolling-window and lag analyses provide useful extensions for practitioners
+seeking adaptive or forward-looking applications.

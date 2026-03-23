@@ -1,0 +1,7 @@
+\contentsline {section}{\numberline {1}Overview}{2}{section.1}%
+\contentsline {section}{\numberline {2}Data Quality and Missing Values}{2}{section.2}%
+\contentsline {section}{\numberline {3}Variable Selection and Coefficient Diagnostics}{4}{section.3}%
+\contentsline {section}{\numberline {4}Lag Structure and Cross-Correlation Analysis}{7}{section.4}%
+\contentsline {section}{\numberline {5}Regime-Switching Fair Value (Realized Volatility vs VIX)}{9}{section.5}%
+\contentsline {section}{\numberline {6}Rolling-Window Fair Value Model}{12}{section.6}%
+\contentsline {section}{\numberline {7}Conclusions}{14}{section.7}%

@@ -1,0 +1,15 @@
+\section{Drivers of CDX IG Spread Movements}
+In standardized multivariate daily-change regressions:
+\begin{itemize}
+  \item \(\beta_{S\&P} \approx +0.006\)
+  \item \(\beta_{UST10} \approx +0.002\)
+  \item \(\beta_{VIX} \approx +0.226\)
+  \item \(\beta_{CDXHY} \approx +0.694\)
+  \item Model \(R^2 \approx 0.711\)
+\end{itemize}
+
+Conclusion: S\&P impact is larger than UST10 in this setup, but both are small compared with direct credit and volatility channels (especially CDX HY, then VIX).
+
+Time variation: rolling 60-day pairwise correlations (see \emph{Correlation regime changes}) show substantial shifts in the co-movement of CDX IG with UST10 and with S\&P, including sign changes for the credit--rates pair; these patterns complement the static regression coefficients above.
+
+Further sensitivity checks---including data quality, full OLS diagnostics for all candidate fair-value models, lag and cross-correlation structure, and rolling-window fair value versus the static specification---are provided in the companion document \emph{Sensitivity to Methodology}.

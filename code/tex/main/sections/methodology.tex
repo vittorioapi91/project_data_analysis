@@ -1,0 +1,15 @@
+\section{Methodology}
+\begin{itemize}
+  \item \textbf{Data handling:} Excel data loaded into a pandas DataFrame, sorted by \texttt{Date}.
+  \item \textbf{Transformations:} Most cross-asset relationships are computed on daily changes (\(\Delta x_t = x_t - x_{t-1}\)) to reduce spurious level correlations.
+  \item \textbf{Correlations:} Static full-sample correlation matrix and rolling 60-day correlations to detect regime shifts and correlation breakdowns.
+  \item \textbf{Impact test for CDX IG:} OLS on standardized daily changes:
+  \[
+  \Delta CDXIG_t = \alpha + \beta_1 \Delta S\&P_t + \beta_2 \Delta UST10_t + \beta_3 \Delta VIX_t + \beta_4 \Delta CDXHY_t + \epsilon_t.
+  \]
+  \item \textbf{Fair value models:} candidate OLS models are estimated on daily changes and compared out-of-sample:
+  \[
+  \Delta CDXIG_t = \alpha + \sum_i \gamma_i \Delta X_{i,t} + u_t.
+  \]
+  Predicted changes are then integrated into a model-implied fair-value level path.
+\end{itemize}

@@ -1,0 +1,214 @@
+\section{Variable Selection and Coefficient Diagnostics}
+
+This section presents the full OLS regression diagnostics for all four
+candidate CDX IG fair-value models estimated on the training set (first 80\% of
+the sample). For each model we report: coefficient estimates, standard errors,
+\(t\)-statistics, and model-level information criteria (AIC, BIC) that penalise
+over-parameterisation.
+
+\subsection*{Model-level summary}
+
+Table~\ref{tab:model_summary} compares the four candidate specifications on
+key fit and selection metrics. Lower AIC and BIC values indicate a more
+parsimonious fit.
+
+\begin{table}[H]
+\centering
+\small
+\caption{Model-level diagnostics (training set).}
+\label{tab:model_summary}
+\begin{tabular}{lrrrrrr}
+\toprule
+Model & \(n\) & \(k\) & \(R^2\) & Adj.\ \(R^2\) & AIC & BIC \\
+\midrule
+CrossMarket\_d       & 916 & 6 & 0.516 & 0.514 & 4\,015 & 4\,044 \\
+RatesVolEquity\_d    & 952 & 6 & 0.485 & 0.483 & 4\,201 & 4\,231 \\
+FXBasisPolicy\_d     & 667 & 6 & 0.057 & 0.049 & 3\,548 & 3\,575 \\
+InflationMacro\_d    & 940 & 5 & 0.146 & 0.142 & 4\,632 & 4\,657 \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\textbf{Observations:}
+\begin{itemize}
+  \item On in-sample \(R^2\) alone, CrossMarket\_d ranks highest (0.516).
+    However, this model includes iTraxx IG as a regressor---an index that is
+    economically near-collinear with CDX IG---making it partially tautological.
+    It is therefore not selected as the primary fair-value specification despite
+    its in-sample fit.
+  \item RatesVolEquity\_d achieves the highest \emph{out-of-sample} \(R^2\)
+    (0.698, as reported in the main document) despite a lower in-sample \(R^2\),
+    indicating better generalisation and less overfitting.
+  \item AIC and BIC are not directly comparable across models with different
+    sample sizes (FXBasisPolicy\_d uses a shorter series due to ESTR data
+    availability). Among the three models sharing comparable sample sizes
+    (\(\sim\!920\)--\(950\)), CrossMarket\_d has the lowest AIC/BIC, followed
+    by RatesVolEquity\_d, with InflationMacro\_d substantially higher.
+  \item FXBasisPolicy\_d has very low explanatory power (\(R^2 = 0.057\)),
+    confirming that FX and short-rate variables alone are insufficient to
+    explain IG credit spread movements.
+\end{itemize}
+
+\subsection*{Coefficient detail: RatesVolEquity\_d (selected model)}
+
+Table~\ref{tab:coef_rve} presents the coefficient estimates for the selected
+specification.
+
+\begin{table}[H]
+\centering
+\small
+\caption{OLS coefficients --- RatesVolEquity\_d (training set, \(n = 952\)).}
+\label{tab:coef_rve}
+\begin{tabular}{lrrrr}
+\toprule
+Variable & Coefficient & Std.\ Error & \(t\)-statistic & Sig.\ (5\%) \\
+\midrule
+Intercept      &  $+0.077$ & $0.071$ &  $+1.08$ & No  \\
+\(\Delta\)VIX  &  $+0.268$ & $0.053$ &  $+5.06$ & Yes \\
+\(\Delta\)S\&P &  $-0.036$ & $0.003$ & $-11.87$ & Yes \\
+\(\Delta\)UST10 & $-4.127$ & $2.074$ &  $-1.99$ & Yes \\
+\(\Delta\)USYC &  $+1.059$ & $2.970$ &  $+0.36$ & No  \\
+\(\Delta\)SOFR &  $+0.234$ & $0.503$ &  $+0.46$ & No  \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\textbf{Interpretation:}
+\begin{itemize}
+  \item \(\Delta VIX\) and \(\Delta S\&P\) are highly significant
+    (\(|t| > 5\)). Higher volatility widens spreads; equity appreciation
+    tightens them. These are the dominant drivers.
+  \item \(\Delta UST10\) is marginally significant at the 5\% level
+    (\(t = -1.99\)). The negative sign indicates that rising yields are
+    associated with tighter spreads---consistent with a growth-driven regime
+    where higher rates reflect improving fundamentals.
+  \item \(\Delta USYC\) and \(\Delta SOFR\) are not individually significant,
+    suggesting that once the 10-year yield level and VIX are controlled for,
+    the additional rates information from curve slope and overnight rate
+    contributes limited marginal explanatory power. These variables may
+    nonetheless improve out-of-sample stability by capturing secondary rate
+    dynamics.
+\end{itemize}
+
+\subsection*{Coefficient detail: CrossMarket\_d}
+
+\begin{table}[H]
+\centering
+\small
+\caption{OLS coefficients --- CrossMarket\_d (training set, \(n = 916\)).}
+\label{tab:coef_cm}
+\begin{tabular}{lrrrr}
+\toprule
+Variable & Coefficient & Std.\ Error & \(t\)-statistic & Sig.\ (5\%) \\
+\midrule
+Intercept           & $-0.022$ & $0.071$ &  $-0.31$ & No  \\
+\(\Delta\)ITRX IG   & $+0.824$ & $0.063$ & $+13.03$ & Yes \\
+\(\Delta\)ITRX XO   & $+0.028$ & $0.015$ &  $+1.88$ & No  \\
+\(\Delta\)ESTX600   & $+0.081$ & $0.025$ &  $+3.23$ & Yes \\
+\(\Delta\)EURUSD    & $-17.86$ & $15.41$ &  $-1.16$ & No  \\
+\(\Delta\)DEM10     & $+1.431$ & $2.139$ &  $+0.67$ & No  \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\textbf{Interpretation:}
+iTraxx IG dominates (\(t = +13.03\)), which is expected given that it is the
+European equivalent of CDX IG. The high coefficient (0.82) and significance
+confirm near-collinearity between US and European IG CDS indices, making this
+model unsuitable as an independent fair-value tool. ESTX600 is the only other
+significant variable, consistent with the broader equity--credit channel.
+
+\subsection*{Coefficient detail: InflationMacro\_d}
+
+\begin{table}[H]
+\centering
+\small
+\caption{OLS coefficients --- InflationMacro\_d (training set, \(n = 940\)).}
+\label{tab:coef_im}
+\begin{tabular}{lrrrr}
+\toprule
+Variable & Coefficient & Std.\ Error & \(t\)-statistic & Sig.\ (5\%) \\
+\midrule
+Intercept         & $+0.035$ & $0.093$ & $+0.38$ & No  \\
+\(\Delta\)CO      & $-0.037$ & $0.114$ & $-0.33$ & No  \\
+\(\Delta\)US5BEI  & $-22.62$ & $2.592$ & $-8.73$ & Yes \\
+\(\Delta\)UST2    & $-13.11$ & $2.900$ & $-4.52$ & Yes \\
+\(\Delta\)DEM2    & $-3.368$ & $4.443$ & $-0.76$ & No  \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\textbf{Interpretation:}
+Following the exclusion of FR5BEI (see Section~2), this model now uses a
+comparable sample size (\(n = 940\)) to the other specifications.
+US breakeven inflation (\(t = -8.73\)) and the 2-year Treasury yield
+(\(t = -4.52\)) are the only significant variables. The negative US5BEI
+coefficient suggests that rising inflation expectations tighten IG
+spreads---consistent with an environment where higher inflation proxies for
+stronger nominal growth. The overall \(R^2\) of 0.146 remains low, indicating
+that inflation and short-rate variables alone capture only a modest share of
+CDX IG spread variation.
+
+\subsection*{Coefficient detail: FXBasisPolicy\_d}
+
+\begin{table}[H]
+\centering
+\small
+\caption{OLS coefficients --- FXBasisPolicy\_d (training set, \(n = 667\)).}
+\label{tab:coef_fbp}
+\begin{tabular}{lrrrr}
+\toprule
+Variable & Coefficient & Std.\ Error & \(t\)-statistic & Sig.\ (5\%) \\
+\midrule
+Intercept             & $+0.007$ & $0.133$ & $+0.05$ & No  \\
+\(\Delta\)EURUSD      & $-68.45$ & $26.57$ & $-2.58$ & Yes \\
+\(\Delta\)EURUSD3mBS  & $+0.150$ & $0.029$ & $+5.15$ & Yes \\
+\(\Delta\)SOFR        & $-6.527$ & $2.143$ & $-3.04$ & Yes \\
+\(\Delta\)ESTR        & $-6.289$ & $6.860$ & $-0.92$ & No  \\
+\(\Delta\)DEYC        & $-3.590$ & $4.372$ & $-0.82$ & No  \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\textbf{Interpretation:}
+Three variables are individually significant (EURUSD, EURUSD3mBS, SOFR), yet
+the overall model \(R^2\) is only 0.057. This indicates that while FX and
+funding-cost variables have statistically detectable relationships with CDX IG,
+they explain very little of its total variance. The FX basis swap coefficient
+is positive: a wider basis (more expensive USD funding) is associated with
+wider IG spreads, consistent with global dollar-funding stress raising credit
+risk premia.
+
+\subsection*{Summary of variable selection}
+
+\begin{table}[H]
+\centering
+\small
+\caption{Significance summary across all candidate models (5\% level).}
+\label{tab:sig_summary}
+\begin{tabular}{lccccc}
+\toprule
+ & RatesVol & CrossMkt & InflMacro & FXPolicy & Significant in \\
+Variable & Equity & & & & \# models \\
+\midrule
+VIX        & \checkmark &            &            &            & 1 \\
+S\&P       & \checkmark &            &            &            & 1 \\
+UST10      & \checkmark &            &            &            & 1 \\
+ITRX IG    &            & \checkmark &            &            & 1 \\
+ESTX600    &            & \checkmark &            &            & 1 \\
+US5BEI     &            &            & \checkmark &            & 1 \\
+UST2       &            &            & \checkmark &            & 1 \\
+EURUSD     &            &            &            & \checkmark & 1 \\
+EURUSD3mBS &            &            &            & \checkmark & 1 \\
+SOFR       &            &            &            & \checkmark & 1 \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+The significance pattern confirms that each model captures a distinct channel:
+risk appetite/volatility (RatesVolEquity), cross-region credit
+(CrossMarket), inflation/short rates (InflationMacro), and
+FX/funding (FXBasisPolicy). The selected model (RatesVolEquity\_d)
+combines the two most economically interpretable and significant
+drivers---equity risk appetite and implied volatility---with rates variables
+that provide structural context, yielding the best out-of-sample performance.

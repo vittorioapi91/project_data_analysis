@@ -1,0 +1,93 @@
+\section{Data Quality and Missing Values}
+
+\subsection*{Overview}
+
+The dataset comprises 1\,304 daily observations across 20 time series, covering
+the period January 2018 to April 2023. Not all series are available for every
+trading day: holidays, differing market calendars (US vs.\ European), and
+data-provider coverage gaps introduce missing values.
+
+\subsection*{Missing-Value Statistics}
+
+Table~\ref{tab:missing} summarises the number and proportion of missing
+observations for each series, sorted by the percentage of missing data.
+
+\begin{table}[H]
+  \centering
+  \caption{Missing observations per series.}
+  \label{tab:missing}
+  \small
+  \begin{tabular}{lrrr}
+    \toprule
+    \textbf{Series} & \textbf{Missing} & \textbf{Available} & \textbf{\% Missing} \\
+    \midrule
+    FR5BEI       & 1\,112 &   192 & 85.3 \\
+    ESTR         &   395 &   909 & 30.3 \\
+    SOFR         &    57 & 1\,247 &  4.4 \\
+    UST10        &    55 & 1\,249 &  4.2 \\
+    UST2         &    55 & 1\,249 &  4.2 \\
+    US5BEI       &    55 & 1\,249 &  4.2 \\
+    CDX IG       &    54 & 1\,250 &  4.1 \\
+    CDX HY       &    54 & 1\,250 &  4.1 \\
+    S\&P         &    46 & 1\,258 &  3.5 \\
+    ITRX IG      &    42 & 1\,262 &  3.2 \\
+    ITRX XO      &    42 & 1\,262 &  3.2 \\
+    VIX          &    39 & 1\,265 &  3.0 \\
+    DEM2         &    24 & 1\,280 &  1.8 \\
+    DEM10        &    23 & 1\,281 &  1.8 \\
+    ESTX600      &    19 & 1\,285 &  1.5 \\
+    CO           &    12 & 1\,292 &  0.9 \\
+    EURUSD       &     0 & 1\,304 &  0.0 \\
+    EURUSD3mBS   &     0 & 1\,304 &  0.0 \\
+    USYC         &     0 & 1\,304 &  0.0 \\
+    DEYC         &     0 & 1\,304 &  0.0 \\
+    \bottomrule
+  \end{tabular}
+\end{table}
+
+\subsection*{Key Observations}
+
+\begin{itemize}
+  \item \textbf{FR5BEI (French 5yr inflation breakeven):} 85.3\% of
+    observations are missing. With only 192 usable data points out of 1\,304,
+    this series cannot support reliable statistical analysis. It is therefore
+    \textbf{excluded from all analyses} in both the main report and this
+    sensitivity document.
+  \item \textbf{ESTR (Euro short-term rate):} 30.3\% missing. ESTR was
+    introduced by the ECB in October 2019, so observations before that date are
+    unavailable. Any model that includes ESTR is effectively restricted to a
+    roughly three-year subsample.
+  \item \textbf{US rates, CDS indices, and equity series (3--4\% missing):}
+    these gaps align with US and European public holidays and occasional
+    data-feed outages. Their impact on analysis is modest.
+  \item \textbf{EURUSD, EURUSD3mBS, USYC, DEYC:} fully populated with no
+    missing values.
+\end{itemize}
+
+\subsection*{Treatment}
+
+The following approach is applied consistently throughout the main report and
+this sensitivity document:
+
+\begin{enumerate}
+  \item \textbf{Pairwise (listwise per analysis) deletion.} For each specific
+    computation --- whether a correlation, regression, or rolling-window
+    estimate --- only dates for which \emph{all} required series are
+    simultaneously available are used. This avoids imputing values for
+    financial time series where interpolation could distort volatility
+    clustering, jump dynamics, and cross-sectional relationships.
+
+  \item \textbf{No forward-filling or interpolation.} Given that the missing
+    observations predominantly correspond to genuine market closures (holidays),
+    carrying forward the previous day's close would artificially inject zero
+    returns on non-trading days. This would understate realised volatility and
+    bias correlation estimates toward zero.
+
+  \item \textbf{Impact on model selection.} Following the exclusion of FR5BEI,
+    the InflationMacro candidate model is reduced to four regressors (\(\Delta
+    CO\), \(\Delta US5BEI\), \(\Delta UST2\), \(\Delta DEM2\)). The high
+    proportion of missing values in ESTR (30.3\%) also materially reduces the
+    effective sample for any model that includes it: the FXBasisPolicy
+    specification retains only 834 observations after differencing, limiting
+    the reliability of its rolling-window estimates.
+\end{enumerate}

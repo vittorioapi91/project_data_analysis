@@ -1,0 +1,51 @@
+\documentclass[11pt]{article}
+\usepackage[a4paper,margin=1in]{geometry}
+\usepackage{graphicx}
+\usepackage{booktabs}
+\usepackage{float}
+\usepackage{hyperref}
+\usepackage{listings}
+\usepackage{xcolor}
+\usepackage{longtable}
+
+\hypersetup{
+  colorlinks=true,
+  linkcolor=blue,
+  urlcolor=blue
+}
+
+\lstdefinestyle{pythonstyle}{
+  language=Python,
+  basicstyle=\ttfamily\small,
+  keywordstyle=\color{blue},
+  commentstyle=\color{teal},
+  stringstyle=\color{purple},
+  showstringspaces=false,
+  breaklines=true,
+  frame=single
+}
+
+\title{ICMA Data Assignment: Multi-Asset Time-Series Analysis}
+\author{}
+\date{\today}
+
+\begin{document}
+\maketitle
+\tableofcontents
+\newpage
+
+\input{sections/executive_summary}
+\input{sections/methodology}
+\input{sections/dataset_overview}
+\input{sections/cross_asset_correlations}
+\input{sections/correlation_regime_changes}
+\input{sections/cdxig_drivers}
+\input{sections/counterintuitive_patterns}
+\input{sections/fair_value_modeling}
+\input{sections/reproducibility}
+
+\appendix
+\input{sections/code_availability}
+\input{sections/companion_document}
+
+\end{document}

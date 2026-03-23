@@ -1,0 +1,28 @@
+\section{Overview}
+
+This document examines the sensitivity of the main report's analytical results
+to alternative methodological choices. It begins with a data-quality assessment
+and then addresses the following analytical areas:
+
+\begin{enumerate}
+  \item \textbf{Data quality and missing values} --- a per-series inventory of
+    missing observations, their causes, and the treatment applied throughout
+    the analysis.
+  \item \textbf{Variable selection and coefficient diagnostics} --- full OLS
+    regression output for all candidate fair-value models, including coefficient
+    estimates, standard errors, \(t\)-statistics, and information criteria
+    (AIC/BIC) to support the model selection rationale.
+  \item \textbf{Lag structure and cross-correlation analysis} --- autocorrelation
+    and partial autocorrelation of CDX IG daily changes, together with
+    cross-correlation functions against each candidate driver, to assess whether
+    lagged regressors would improve model specification.
+  \item \textbf{Regime-switching static fair value (RV vs VIX)} --- a
+    sensitivity in which OLS coefficients depend on whether trailing realised
+    volatility of the S\&P index (from daily level returns) exceeds VIX by more
+    than a fixed margin (percentage points on the spread), with a
+    figure showing regime timing.
+  \item \textbf{Rolling-window fair value model} --- whether allowing model
+    coefficients to vary over time (rolling-window estimation) improves or
+    degrades the fair-value specification relative to the static
+    global-coefficient approach used in the main report.
+\end{enumerate}

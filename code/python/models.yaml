@@ -1,0 +1,51 @@
+target: "CDX IG"
+
+train_ratio: 0.8
+min_obs: 80
+rolling_window: 180
+
+candidate_models:
+  RatesVolEquity_d:
+    - VIX
+    - "S&P"
+    - UST10
+    - USYC
+    - SOFR
+
+  CrossMarket_d:
+    - ITRX IG
+    - ITRX XO
+    - ESTX600
+    - EURUSD
+    - DEM10
+
+  InflationMacro_d:
+    - CO
+    - US5BEI
+    - UST2
+    - DEM2
+
+  FXBasisPolicy_d:
+    - EURUSD
+    - EURUSD3mBS
+    - SOFR
+    - ESTR
+    - DEYC
+
+plot_styles:
+  RatesVolEquity:
+    color: "#ff7f0e"
+    linestyle: "-."
+    linewidth: 1.2
+  CrossMarket:
+    color: "#9467bd"
+    linestyle: ":"
+    linewidth: 1.2
+  InflationMacro:
+    color: "#d62728"
+    linestyle: "--"
+    linewidth: 1.0
+  FXBasisPolicy:
+    color: "#8c564b"
+    linestyle: "-."
+    linewidth: 1.0
