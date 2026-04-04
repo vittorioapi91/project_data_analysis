@@ -1,0 +1,30 @@
+#!/bin/sh
+# Remove Cursor co-author trailer if the editor or agent re-adds it.
+set -eu
+MSG_FILE="${1:-}"
+if [ -z "$MSG_FILE" ] || [ ! -f "$MSG_FILE" ]; then
+	echo "commit-msg: missing or invalid message file" >&2
+	exit 1
+fi
+export GIT_COMMIT_MSG_FILE="$MSG_FILE"
+if ! python3 <<'PY'
+import os
+import re
+import sys
+
+path = os.environ["GIT_COMMIT_MSG_FILE"]
+with open(path, "rb") as f:
+	data = f.read()
+pattern = re.compile(br"(?mi)^Co-authored-by:\s*Cursor\s*<cursoragent@cursor\.com>\s*\r?\n?")
+new = pattern.sub(b"", data)
+if new != data:
+	sys.stderr.buffer.write(
+		b"commit-msg: removed Co-authored-by: Cursor <cursoragent@cursor.com>\n"
+	)
+	with open(path, "wb") as f:
+		f.write(new)
+PY
+then
+	echo "commit-msg: failed to normalize message" >&2
+	exit 1
+fi
